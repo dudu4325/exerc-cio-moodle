@@ -4,6 +4,7 @@
     --cor-text: black;
     --cor-back1: #edf2f4;
     --cor-back2: #6a937a;
+
     --md-sys-color-primary: #126ae2;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #edf2f4;
@@ -13,8 +14,7 @@
     --nota-media: #ff9800;
     --nota-alta: #4caf50;
 
-    /* variável que estava sendo usada mas não definida */
-    --frequencia: #6a937a;
+    --frequencia: #0a599b;
 }
 
 * { box-sizing: border-box; }
@@ -122,24 +122,24 @@ header {
     left: 0;
     background-color: white;
     overflow-x: hidden;
-    transition: 0.25s;
+    transition: 0.5s;
     z-index: 30;
     display: none;
     border-radius: 8px;
-    padding-top: 40px;
 }
 
-.menu_bot {
+#menu_bot {
+    position: relative;
     padding: 20px;
     display: block;
     cursor: pointer;
     font-size: 16px;
+    font-style: normal;
+    font-family: "Arimo", sans-serif;
     color: black;
-    transition: 0.2s;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: 0.5s;
 }
 
-/* componentes */
 .comp-aula,
 .container {
     position: relative;
@@ -256,7 +256,6 @@ button {
     text-overflow: ellipsis;
 }
 
-/* tipos / reserva */
 .tipo-container {
     display: flex;
     justify-content: space-around;
@@ -291,7 +290,7 @@ button {
     color: white;
 }
 
-.tipo:hover { background-color: #2ecc71; }
+.tipo:hover { background-color: #28a745; }
 
 .tipo.selected {
     background-color: #28a745;

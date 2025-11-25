@@ -138,6 +138,8 @@ class AulasComponent extends HTMLElement {
             }
         `;
     
+        this.shadowRoot.appendChild(style);
+
         const getNotaColor = (nota) => {
             const notaNum = parseFloat(nota);
             if (notaNum < 6) return 'var(--nota-baixa)';
@@ -145,22 +147,26 @@ class AulasComponent extends HTMLElement {
             return 'var(--nota-alta)';
         };
 
-        const container = document.createElement('div');
-        container.innerHTML = aulasDia.map(a => {
-            let provaDisplay = a.prova_alert ? '' : 'display: none;';
-            const notaColor = getNotaColor(a.nota);
-            return `
-                <div class="comp-aula">
-                    <div class="lable-prova p_lable" style="${provaDisplay}">PROVA: <b>${a.prova}</b></div>
-                    <div class="titulo_aula">${a.disciplina}</div>
-                    <p class="p">Local e Horário: <b>${a.local} - ${a.horario}</b></p>
-                    <div class="lables">
-                        <div class="lable-frequencia p_lable">FALTAS: <b>${a.frequencia}</b></div>
-                        <div class="lable-nota p_lable" style="background-color: ${notaColor}">CR: <b>${a.nota}</b></div>
-                    </div>
-                </div>
+        this.shadowRoot.innerHTML += `
+            <div>
+                ${aulasDia.map(a => {
+                    let provaDisplay = a.prova_alert ? '' : 'display: none;';
+                    const notaColor = getNotaColor(a.nota);
+                    
+                    return `
+                        <div class="comp-aula">
+                            <div class="lable-prova p_lable" style="${provaDisplay}">PROVA: <b>${a.prova}</b></div>
+                            <div class="titulo_aula">${a.disciplina}</div>
+                            <p class="p">Local e Horário: <b>${a.local} - ${a.horario}</b></p>
+                            <div class="lables">
+                                <div class="lable-frequencia p_lable">FALTAS: <b>${a.frequencia}</b></div>
+                                <div class="lable-nota p_lable" style="background-color: ${notaColor}">CR: <b>${a.nota}</b></div>
+                            </div>
+                        </div>
                     `;
-        }).join('');
+                }).join('')}
+            </div>
+        `;
         
     }
 }
@@ -182,6 +188,7 @@ function temaLim() {
     document.documentElement.style.setProperty('--cor-back1', '#CEF09D');
     document.documentElement.style.setProperty('--cor-back2', '#4f6a93');
     document.documentElement.style.setProperty('--md-sys-color-primary', '#38184C');
+    document.documentElement.style.setProperty('--frequencia', '#9b0a59');
 }
 
 function temaInatel() {
@@ -191,6 +198,7 @@ function temaInatel() {
     document.documentElement.style.setProperty('--cor-back1', '#edf2f4');
     document.documentElement.style.setProperty('--cor-back2', '#6a937a');
     document.documentElement.style.setProperty('--md-sys-color-primary', '#126ae2');
+    document.documentElement.style.setProperty('--frequencia', '#0a599b');
 }
 
 function temaDark() {
@@ -200,7 +208,8 @@ function temaDark() {
         '--cor-text': 'black',
         '--cor-back1': '#38184C',
         '--cor-back2': '#4f6a93',
-        '--md-sys-color-primary': '#CEF09D'
+        '--md-sys-color-primary': '#CEF09D',
+        '--frequencia': '#9b0a59'
     };
 
     for (const [variavel, valor] of Object.entries(cores)) {
