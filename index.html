@@ -14,6 +14,7 @@
         <div id="menu_bot" onclick="closeMenu(), temaInatel()">Tema Inatel</div>
         <div id="menu_bot" onclick="closeMenu(), temaLim()">Tema Limão</div>
         <div id="menu_bot" onclick="closeMenu(), temaDark()">Tema Dark</div>
+        <div id="menu_bot" onclick="">Agenda</div>
     </div> 
     <header id="head">   
         <div id="menu" onclick="openMenu()"><span class="material-symbols-outlined icoG">menu</span></div>
@@ -40,6 +41,19 @@
             <button id="prevBtn">❮</button>
             <button id="nextBtn">❯</button>
         </div>
+
+        <div class="container">
+            <h2 class="titulo_aula">Reserva de Armário</h2>
+            <p>Selecione o tipo de armário:</p>
+
+        <div class="tipo-container">
+            <div class="tipo p_lable" data-value="padrao">Padrão</div>
+            <div class="tipo p_lable" data-value="duplo">Duplo</div>
+            <div class="tipo_res p_lable" onclick="reservarArmario()">Reservar</div>
+        </div>
+        <div id="armarioNumero" class="titulo_aula"></div>
+            <p id="resultado"></p>
+        </div> 
     </main>
 </body>
 </html>

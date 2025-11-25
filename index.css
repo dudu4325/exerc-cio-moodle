@@ -1,129 +1,119 @@
 :root {
-    --cor-click: #126ae2; 
+    --cor-click: #126ae2;
     --cor-sombra: #0a599b;
-    --cor-text: black; 
-    --cor-back1: #edf2f4; 
-    --cor-back2: #6a937a; 
-    
+    --cor-text: black;
+    --cor-back1: #edf2f4;
+    --cor-back2: #6a937a;
     --md-sys-color-primary: #126ae2;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #edf2f4;
     --md-sys-color-on-primary-container: #002020;
 
-    --nota-baixa: #f44336; 
+    --nota-baixa: #f44336;
     --nota-media: #ff9800;
-    --nota-alta: #4caf50; 
+    --nota-alta: #4caf50;
+
+    /* variável que estava sendo usada mas não definida */
+    --frequencia: #6a937a;
 }
+
+* { box-sizing: border-box; }
 
 body {
-    margin: 0px;
+    margin: 0;
     background-color: var(--cor-back1);
+    font-family: "Arimo", sans-serif;
 }
-
-@import url(https://fonts.googleapis.com/css?family=Arimo);
 
 header {
     position: relative;
-    height: 35px;
-    top: 0px;
-    left: 0px;
-    right: 0px;
+    height: 48px;
+    padding: 8px 0;
 }
 
 #menu {
     position: absolute;
-    left: 0px;
+    left: 8px;
     top: 10px;
-    margin-left: 15px;
+    margin-left: 7px;
     cursor: pointer;
 }
 
 #logo {
     position: absolute;
-    top: 13px;
+    top: 8px;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%);
 }
 
-.svg_logo{
+.svg_logo {
     width: 80px;
 }
 
-.path_logo{
+.path_logo {
     fill: var(--cor-click);
 }
 
 #perfil {
     position: absolute;
-    right: 0px;
-    top: 10px;
-    margin-right: 15px;
+    right: 8px;
+    top: 8px;
+    margin-right: 7px;
 }
 
 #mensagens {
     position: relative;
     background-color: white;
-    top: 0px;
-    left: 0px;
-    right: 0px;
     padding: 15px;
     margin: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.08);
 }
 
 #user_name {
     display: block;
-    font-size: 17pt;
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 
 #mns_box {
-    position: relative;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    margin-top:5px;
+    margin-top: 8px;
 }
 
 #icon {
-    width: 18px;
+    width: 22px;
     display: inline-block;
     vertical-align: top;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 #mns {
     padding: 5px;
-    width: 80%;
+    width: calc(100% - 30px);
     display: inline-block;
+    vertical-align: top;
 }
 
 .material-symbols-outlined {
     color: var(--cor-click);
     font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
 }
 
-.icoG {
-    font-size: 30px;
-}
-
-.icoP {
-    font-size: 18px;
-}
+.icoG { font-size: 30px; }
+.icoP { font-size: 18px; }
 
 .font {
-    font-family: "Arimo", sans-serif;
     font-optical-sizing: auto;
-    font-weight: weight;
     font-style: normal;
     font-size: 11px;
     color: var(--cor-text);
 }
 
+/* menu lateral */
 #menu_aba {
     height: 100%;
     width: 100%;
@@ -132,60 +122,52 @@ header {
     left: 0;
     background-color: white;
     overflow-x: hidden;
-    transition: 0.5s;
-    z-index: 1;
+    transition: 0.25s;
+    z-index: 30;
     display: none;
-    border-radius: 10px;
+    border-radius: 8px;
+    padding-top: 40px;
 }
 
-#menu_bot {
-    position: relative;
+.menu_bot {
     padding: 20px;
-    display: "block";
+    display: block;
     cursor: pointer;
-    font-family: "Arimo", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
-    font-size: 14pt;
-    color: var(black);
-    transition: 0.5s;
+    font-size: 16px;
+    color: black;
+    transition: 0.2s;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-#componentes {
+/* componentes */
+.comp-aula,
+.container {
     position: relative;
     background-color: white;
-    top: 0px;
-    left: 0px;
-    right: 0px;
     padding: 15px;
     margin: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.08);
+    right: 0;
 }
 
-h3 {
-    font-family: "Arimo", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
-    font-size: 14px;
+.titulo_aula {
+    font-weight: 700;
+    font-size: 15px;
     color: var(--cor-text);
     padding-left: 5px;
-    padding-right: 5px
+    padding-right: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 p {
-    font-family: "Arimo", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
     font-size: 11px;
     color: var(--cor-text);
     line-height: 1.5;
-    orphans: 3;
     padding-left: 5px;
-    padding-right: 5px
+    padding-right: 5px;
 }
 
 .carousel-container {
@@ -194,28 +176,29 @@ p {
     background-color: white;
     border-radius: 10px;
     margin: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.01);
 }
 
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    will-change: transform;
 }
 
 .card {
     min-width: 100%;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .card img {
     width: 100%;
+    height: auto;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
 
-.info {
-    padding: 10px
-}
+.info { padding: 10px; }
 
 .icon {
     font-size: 15px;
@@ -223,42 +206,26 @@ p {
     margin-right: 2px;
     width: 18px;
     display: inline-block;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 button {
     position: absolute;
-    top: 30%;
+    top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.45);
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
 #prevBtn { left: 10px; }
 #nextBtn { right: 10px; }
 
-.titulo_aula {
-    font-family: "Arimo", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 15px;
-    color: var(--cor-text);
-    padding-left: 5px;
-    padding-right: 5px;
-  
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.lables {
-    display: flex;
-}
+.lables { display: flex; }
 
 .lable-prova,
 .lable-frequencia,
@@ -268,45 +235,85 @@ button {
     border-radius: 500px;
     text-align: center;
     margin-right: 10px;
+    display: inline-block;
 }
 
-.lable-prova {
-    background-color: var(--cor-click);
+.lable-prova { 
+    background-color: var(--cor-click); 
+    color: white; 
 }
 
-.lable-frequencia {
-    background-color: var(--cor-sombra);
-}
-
-.lable-nota {
-    background-color: var(--nota-alta);
+.lable-frequencia { 
+    background-color: var(--cor-sombra); 
+    color: white; 
 }
 
 .p_lable {
-    font-family: "Arimo", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
     font-size: 11px;
     color: white;
-  
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.comp-aula {
-    position: relative;
-    background-color: white;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    padding: 15px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+/* tipos / reserva */
+.tipo-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
 }
 
-.comp-aula:last-child {
-    border-bottom: none;
+.tipo_res {
+    padding: 8px;
+    border: 2px solid #007bff;
+    border-radius: 500px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    margin: 5px;
+    text-align: center;
+    background-color: #28a745;
+    color: white;
+}
+
+.tipo {
+    padding: 8px;
+    border: 2px solid #007bff;
+    border-radius: 500px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    margin: 5px;
+    text-align: center;
+    background-color: var(--frequencia);
+    color: white;
+}
+
+.tipo:hover { background-color: #2ecc71; }
+
+.tipo.selected {
+    background-color: #28a745;
+    color: white;
+}
+
+#armarioNumero {
+    display: none;
+    margin: 20px auto 10px;
+    padding: 15px;
+    border-radius: 500px;
+    background-color: var(--frequencia);
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: fit-content;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+}
+
+#resultado {
+    margin-top: 12px;
+    white-space: pre-line;
+    font-size: 13px;
 }

@@ -77,14 +77,13 @@ class AulasComponent extends HTMLElement {
             p {
                 font-family: "Arimo", sans-serif;
                 font-optical-sizing: auto;
-                font-weight: weight;
+                font-weight: normal;
                 font-style: normal;
                 font-size: 11px;
                 color: var(--cor-text);
                 line-height: 1.5;
-                orphans: 3;
                 padding-left: 5px;
-                padding-right: 5px
+                padding-right: 5px;
             }
             
             .lables {
@@ -112,7 +111,7 @@ class AulasComponent extends HTMLElement {
             .p_lable {
                 font-family: "Arimo", sans-serif;
                 font-optical-sizing: auto;
-                font-weight: weight;
+                font-weight: normal;
                 font-style: normal;
                 font-size: 11px;
                 color: white;
@@ -127,7 +126,7 @@ class AulasComponent extends HTMLElement {
                 background-color: white;
                 top: 0px;
                 left: 0px;
-                rigth: 0px;
+                right: 0px;
                 padding: 15px;
                 margin: 20px;
                 border-radius: 10px;
@@ -138,7 +137,6 @@ class AulasComponent extends HTMLElement {
                 border-bottom: none;
             }
         `;
-        this.shadowRoot.appendChild(style);
     
         const getNotaColor = (nota) => {
             const notaNum = parseFloat(nota);
@@ -147,26 +145,23 @@ class AulasComponent extends HTMLElement {
             return 'var(--nota-alta)';
         };
 
-        this.shadowRoot.innerHTML += `
-            <div>
-                ${aulasDia.map(a => {
-                    let provaDisplay = a.prova_alert ? '' : 'display: none;';
-                    const notaColor = getNotaColor(a.nota);
-                    
-                    return `
-                        <div class="comp-aula">
-                            <div class="lable-prova p_lable" style="${provaDisplay}">PROVA: <b>${a.prova}</b></div>
-                            <div class="titulo_aula">${a.disciplina}</div>
-                            <p class="p">Local e Horário: <b>${a.local} - ${a.horario}</b></p>
-                            <div class="lables">
-                                <div class="lable-frequencia p_lable">FALTAS: <b>${a.frequencia}</b></div>
-                                <div class="lable-nota p_lable" style="background-color: ${notaColor}">CR: <b>${a.nota}</b></div>
-                            </div>
-                        </div>
+        const container = document.createElement('div');
+        container.innerHTML = aulasDia.map(a => {
+            let provaDisplay = a.prova_alert ? '' : 'display: none;';
+            const notaColor = getNotaColor(a.nota);
+            return `
+                <div class="comp-aula">
+                    <div class="lable-prova p_lable" style="${provaDisplay}">PROVA: <b>${a.prova}</b></div>
+                    <div class="titulo_aula">${a.disciplina}</div>
+                    <p class="p">Local e Horário: <b>${a.local} - ${a.horario}</b></p>
+                    <div class="lables">
+                        <div class="lable-frequencia p_lable">FALTAS: <b>${a.frequencia}</b></div>
+                        <div class="lable-nota p_lable" style="background-color: ${notaColor}">CR: <b>${a.nota}</b></div>
+                    </div>
+                </div>
                     `;
-                }).join('')}
-            </div>
-        `;
+        }).join('');
+        
     }
 }
 
@@ -214,7 +209,6 @@ function temaDark() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {  
-
     const eventos = [
     {
         id: 1,
@@ -304,6 +298,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (endX - startX > 50) prevCard();
     });
 
+    let interval
+
     function startAutoPlay() {
     interval = setInterval(nextCard, 5000);
     }
@@ -319,4 +315,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
     createCards();
 
+    // Variáveis usadas por reservarArmario (dados de exemplo)
+    const usuario = { nome: "Raphael", acessibilidade: false, pendencia: false };
+    let armarios = [
+        { id: 1, formato: "padrao", status: true, acessivel: false },
+        { id: 2, formato: "duplo", status: true, acessivel: false },
+        { id: 3, formato: "padrao", status: true, acessivel: true }
+    ];
+
+    // controle do tipo selecionado (conecta com os botões .tipo)
+    let tipoSelecionado = null;
+    const tipos = document.querySelectorAll('.tipo');
+    tipos.forEach(t => {
+        t.addEventListener('click', () => {
+            tipos.forEach(x => x.classList.remove('selected'));
+            t.classList.add('selected');
+            tipoSelecionado = t.dataset.value || null;
+        });
+    });
+
+    window.reservarArmario = function reservarArmario() {
+        const resultado = document.getElementById("resultado");
+        const armarioNumero = document.getElementById("armarioNumero");
+
+        if (typeof armarios === 'undefined' || typeof usuario === 'undefined') {
+            resultado.innerText = "Erro: dados de armários ou usuário não carregados.";
+            armarioNumero.style.display = "none";
+            console.error('Variáveis ausentes:', { armarios: typeof armarios, usuario: typeof usuario });
+            return;
+        }
+
+        if (!tipoSelecionado) {
+            resultado.innerText = "Por favor, selecione um tipo de armário antes de reservar.";
+            armarioNumero.style.display = "none";
+            return;
+        }
+
+        let armariosDisponiveis = armarios.filter(a =>
+            a.formato === tipoSelecionado && a.status === true && (usuario.acessibilidade === undefined ? true : usuario.acessibilidade === a.acessivel)
+        );
+
+        if (armariosDisponiveis.length === 0) {
+            resultado.innerText = `Olá, ${usuario.nome || 'usuário'}! Nenhum armário disponível para o tipo selecionado.`;
+            armarioNumero.style.display = "none";
+            return;
+        }
+
+        let armarioSorteado = armariosDisponiveis[Math.floor(Math.random() * armariosDisponiveis.length)];
+        let armarioEmprestado = armarios.find(armario => armario.id === armarioSorteado.id);
+        armarioEmprestado.status = false;
+
+        let dataReserva = new Date();
+        armarioEmprestado.dataReserva = dataReserva.toLocaleString("pt-BR");
+        let dataEntrega = new Date(dataReserva.getTime() + 24 * 60 * 60 * 1000);
+        armarioEmprestado.dataEntrega = dataEntrega.toLocaleString("pt-BR");
+
+        usuario.pendencia = true;
+
+        armarioNumero.innerText = `Armário Nº ${armarioEmprestado.id}`;
+        armarioNumero.style.display = "block";
+
+        resultado.innerText =
+            `Olá, ${usuario.nome || 'usuário'}! O armário ${armarioEmprestado.id} foi reservado com sucesso.\n` +
+            `Data da reserva: ${armarioEmprestado.dataReserva}\n` +
+            `Data de entrega: ${armarioEmprestado.dataEntrega}`;
+
+        console.log('usuario:', usuario);
+        console.log('armarios:', armarios);
+    };
 });
