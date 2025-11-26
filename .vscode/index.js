@@ -349,13 +349,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let tipoSelecionado = null;
     const tipos = document.querySelectorAll('.tipo');
-    tipos.forEach(t => {
-        t.addEventListener('click', () => {
-            tipos.forEach(x => x.classList.remove('selected'));
-            t.classList.add('selected');
-            tipoSelecionado = t.dataset.value || null;
+    tipos.forEach(tipo => {
+        tipo.addEventListener('click', () => {
+            tipos.forEach(t => t.classList.remove('selected'));
+            tipo.classList.add('selected');
+            tipoSelecionado = tipo.dataset.value || null;
         });
-    });
+    })
 
     window.reservarArmario = function reservarArmario() {
         const resultado = document.getElementById("resultado");
