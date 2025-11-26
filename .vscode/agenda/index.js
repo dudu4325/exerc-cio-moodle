@@ -244,18 +244,22 @@ function updateCurrentTimeIndicator() {
 }
 
 function openMenu() {
-    document.getElementById("menu_aba").style.display = "block"; 
+    document.getElementById("menu_aba").style.display = "block";
+    const indicator = document.getElementById('currentTimeIndicator');
+    if (indicator) {
+        indicator.style.display = 'none';
+    }
 }
 
 function closeMenu() {
     document.getElementById("menu_aba").style.display = "none";    
+    updateCurrentTimeIndicator();
 }
 
 function temaLim() {
     document.documentElement.style.setProperty('--cor-click', '#38184C');
     document.documentElement.style.setProperty('--cor-sombra', '#9b0a59');
     document.documentElement.style.setProperty('--backgroundPrimary', '#CEF09D');
-
     localStorage.setItem('tema', 'lim');
 }
 
@@ -263,7 +267,6 @@ function temaInatel() {
     document.documentElement.style.setProperty('--cor-click', '#126ae2');
     document.documentElement.style.setProperty('--cor-sombra', '#0a599b');
     document.documentElement.style.setProperty('--backgroundPrimary', '#edf2f4');
-
     localStorage.setItem('tema', 'inatel');
 }
 

@@ -68,9 +68,18 @@ header {
     cursor: pointer;
 }
 
-#logo, #perfil {
-    position: static;
-    margin: 0;
+#logo {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#perfil {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    margin-right: 7px;
 }
 
 .svg_logo {
@@ -330,9 +339,9 @@ header {
     left: 0;
     right: 0;
     height: 2px;
-    background-color: #ef4444;
+    background-color: var(--cor-click);
     z-index: 100;
-    box-shadow: 0 0 4px rgba(239, 68, 68, 0.7);
+    box-shadow: 0 0 4px var(--cor-sombra);
 }
 
 .currentTimeIndicator::before {
@@ -341,9 +350,9 @@ header {
     left: -6px;
     width: 8px;
     height: 8px;
-    background-color: #ef4444;
+    background-color: var(--cor-click);
     border-radius: 50%;
-    box-shadow: 0 0 4px rgba(239, 68, 68, 0.7);
+    box-shadow: 0 0 4px var(--cor-sombra);
 }
 
 @media (max-width: 768px) {
