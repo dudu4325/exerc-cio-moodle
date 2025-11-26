@@ -225,7 +225,13 @@ function updateCurrentTimeIndicator() {
     const now = new Date();
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
+
     const indicator = document.getElementById('currentTimeIndicator');
+
+    if (!indicator) {
+        console.warn("Elemento #currentTimeIndicator não encontrado no DOM.");
+        return;
+    }
 
     if (currentHour >= 6 && currentHour < 23) {
         const position = ((currentHour - 6) * 60 + currentMinute) * (60 / 60);

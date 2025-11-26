@@ -349,17 +349,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let tipoSelecionado = null;
     const tipos = document.querySelectorAll('.tipo');
+
     tipos.forEach(tipo => {
         tipo.addEventListener('click', () => {
-            tipos.forEach(t => t.classList.remove('selected'));
+            tipos.forEach(t => {
+                t.classList.remove('selected');
+                t.style.backgroundColor = '';
+            });
+
             tipo.classList.add('selected');
             tipoSelecionado = tipo.dataset.value || null;
         });
     })
 
+    function desselecionarTodos() {
+        tipos.forEach(t => {
+            t.classList.remove('selected');
+            t.style.backgroundColor = '';
+        });
+        tipoSelecionado = null;
+    }
+
     window.reservarArmario = function reservarArmario() {
         const resultado = document.getElementById("resultado");
         const armarioNumero = document.getElementById("armarioNumero");
+
+        setTimeout(() => {
+            desselecionarTodos();
+        }, 0.2);
 
         if (typeof armarios === 'undefined' || typeof usuario === 'undefined') {
             resultado.innerText = "Erro: dados de armários ou usuário não carregados.";

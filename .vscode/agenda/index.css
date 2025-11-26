@@ -325,7 +325,7 @@ header {
     justify-content: center;
 }
 
-.current-time-indicator {
+.currentTimeIndicator {
     position: absolute;
     left: 0;
     right: 0;
@@ -335,7 +335,7 @@ header {
     box-shadow: 0 0 4px rgba(239, 68, 68, 0.7);
 }
 
-.current-time-indicator::before {
+.currentTimeIndicator::before {
     content: '';
     position: absolute;
     left: -6px;
