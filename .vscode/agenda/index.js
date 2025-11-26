@@ -55,8 +55,8 @@ function setupEventListeners() {
 
     const saveBtn = document.getElementById('saveBtn');
     saveBtn.addEventListener('click', (e) => {
-        e.preventDefault
-        saveEvent
+        e.preventDefault();
+        saveEvent(e);
     });
 
     document.getElementById('eventModal').addEventListener('click', (e) => {
@@ -106,7 +106,7 @@ function saveEvent(e) {
     const title = document.getElementById('eventTitle').value.trim();
     const startTime = document.getElementById('eventStart').value;
     const endTime = document.getElementById('eventEnd').value;
-    const eventColor = document.getElementById('eventColor').value; 
+    const eventColor = document.getElementById('eventColor').value;
 
     console.log('Salvando evento:', { title, startTime, endTime, eventColor });
 
@@ -121,11 +121,11 @@ function saveEvent(e) {
     }
 
     const eventData = {
-        id: editingEventId || Date.now().toString,
+        id: editingEventId || Date.now().toString(),
         title,
         startTime,
         endTime,
-        color
+        eventColor
     }
 
     if (editingEventId) {
@@ -133,12 +133,105 @@ function saveEvent(e) {
         if (index !== -1) {
             events[index] = eventData;
         }
-        else{         
-            events.push(eventData);
-        }
 
-        console.log('Evento salvo:', eventData);
+    }
+    else {
+        events.push(eventData);
+    }
+
+    console.log('Evento salvo:', eventData);
+    renderEvents();
+    closeEventModal();
+}
+
+function renderEvents() {
+    const existingEvents = document.querySelectorAll('.event');
+    existingEvents.forEach(event => event.remove());
+
+    events.forEach(event => renderEvent(event));
+}
+
+function renderEvent(event) {
+    const eventElement = document.createElement('div');
+    eventElement.className = `event event-${event.eventColor}`;
+    eventElement.textContent = event.title;
+    eventElement.dataset.id = event.id;
+
+    const startHour = parseInt(event.startTime.split(':')[0], 10);
+    const startMinute = parseInt(event.startTime.split(':')[1], 10);
+    const endtHour = parseInt(event.endTime.split(':')[0], 10);
+    const endMinute = parseInt(event.endTime.split(':')[1], 10);
+
+    if (startHour < 6 || endtHour >= 23) {
+        console.warn('Evento fora do horário permitido:', event);
+        return;
+    }
+
+    const startPosition = ((startHour - 6) * 60 + startMinute) * (60 / 60);
+    const duration = ((endtHour - startHour) * 60 + (endMinute - startMinute));
+    const height = Math.max(20, duration * (60 / 60));
+
+    eventElement.style.top = `${startPosition}px`;
+    eventElement.style.height = `${height}px`;
+
+    eventElement.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEventModal(null, event);
+    });
+
+    eventElement.addEventListener('dblclick', (e) => {
+        e.stopPropagation();
+        if (confirm('Tem certeza que deseja excluir este evento?')) {
+            deleteEvent(event.id);
+        }
+    });
+
+    document.getElementById('calendarBody').appendChild(eventElement);
+}
+
+function deleteEvent(eventId) {
+    events = events.filter(event => event.id !== eventId);
+    renderEvents();
+}
+
+function clearAllEvents() {
+    if (events.length === 0) {
+        alert('Não há eventos para limpar.');
+        return;
+    }
+
+    if (confirm('Tem certeza que deseja limpar todos os eventos?')) {
+        events = [];
         renderEvents();
-        closeEventModal();
     }
 }
+
+function scrollToCurrentTime() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    if (currentHour >= 6 && currentHour < 23) {
+        const position = ((currentHour - 6) * 60 + currentMinute) * (60 / 60);
+        const calendarContainer = document.querySelector('.calendar-container');
+        calendarContainer.scrollTop = Math.max(0, position - 200);
+    }
+}
+
+function updateCurrentTimeIndicator() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const indicator = document.getElementById('currentTimeIndicator');
+
+    if (currentHour >= 6 && currentHour < 23) {
+        const position = ((currentHour - 6) * 60 + currentMinute) * (60 / 60);
+        indicator.style.top = `${position}px`;
+        indicator.style.display = 'block';
+    }
+    else {
+        indicator.style.display = 'none';
+    }
+}
+
+init();
