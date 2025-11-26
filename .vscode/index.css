@@ -295,10 +295,10 @@ button {
     color: white;
 }
 
-.tipo:hover { background-color: #28a745; }
+.tipo:hover { background-color: var(--cor-click); }
 
 .tipo.selected {
-    background-color: #28a745;
+    background-color: var(--cor-click);
     color: white;
 }
 

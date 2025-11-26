@@ -1,10 +1,12 @@
 let events = [];
+
 let editingEventId = null;
 
 function init() {
     savedTheme();
     updateDateDisplay();
     generateTimeSlots();
+    uploadClasses();
     setupEventListeners();
     updateCurrentTimeIndicator();
     setInterval(updateCurrentTimeIndicator, 60000);
@@ -279,6 +281,74 @@ function savedTheme() {
     if (theme === 'lim') temaLim();
     else if (theme === 'inatel') temaInatel();
     else if (theme === 'dark') temaDark();
+}
+
+const aulasData = [
+    {
+        "id": 1,
+        "disciplina": "S05 - Interface Homem-máquina",
+        "data": "ter",
+        "horario": "10:00",
+        "local": "P1-S17",
+        "prova_alert": false,
+        "prova": "12/05",
+        "frequencia": "10/25",
+        "nota": "9"
+    },
+    {
+        "id": 2,
+        "disciplina": "E01 - Circuitos Elétricos em Corrente Contínua",
+        "data": "ter",
+        "horario": "13:30",
+        "local": "P1-S17",
+        "prova_alert": true,
+        "prova": "12/05",
+        "frequencia": "10/25",
+        "nota": "5"
+    },
+    {
+        "id": 3,
+        "disciplina": "M02 - Álgebra e Geometria Analítica",
+        "data": "ter",
+        "horario": "15:30",
+        "local": "P1-S17",
+        "prova_alert": true,
+        "prova": "12/05",
+        "frequencia": "10/25",
+        "nota": "7"
+    }
+];
+
+function uploadClasses() {
+    aulasData.forEach(aula => {
+        const start = aula.horario;
+
+        const [h, m] = start.split(':').map(Number);
+        
+        const totalMin = h * 60 + m + 100;
+
+        const fimHora = Math.floor(totalMin / 60)
+            .toString()
+            .padStart(2, "0");
+
+        const fimMin = (totalMin % 60)
+            .toString()
+            .padStart(2, "0");
+
+        const endHour = `${fimHora}:${fimMin}`;
+
+        const event = {
+            id: aula.id.toString(),
+            title: aula.disciplina,
+            startTime: start,
+            endTime: endHour,
+            eventColor: "blue"
+        }
+
+        events.push(event);
+    });
+
+    renderEvents();
 }
 
 init();
