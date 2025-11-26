@@ -234,4 +234,33 @@ function updateCurrentTimeIndicator() {
     }
 }
 
+function openMenu() {
+    document.getElementById("menu_aba").style.display = "block"; 
+}
+
+function closeMenu() {
+    document.getElementById("menu_aba").style.display = "none";    
+}
+
+function temaLim() {
+    document.documentElement.style.setProperty('--cor-click', '#38184C');
+    document.documentElement.style.setProperty('--backgroundPrimary', '#CEF09D');
+}
+
+function temaInatel() {
+    document.documentElement.style.setProperty('--cor-click', '#126ae2');
+    document.documentElement.style.setProperty('--backgroundPrimary', '#edf2f4');
+}
+
+function temaDark() {
+    const cores = {
+        '--cor-click': '#CEF09D',
+        '--backgroundPrimary': '#38184C',
+    };
+
+    for (const [variavel, valor] of Object.entries(cores)) {
+        document.documentElement.style.setProperty(variavel, valor);
+    }
+}
+
 init();
