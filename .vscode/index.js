@@ -34,7 +34,7 @@ const aulasData = [
     }
 ];
 
-function savedTheme() {
+function salvarTema() {
     const theme = localStorage.getItem('tema');
 
     if (theme === 'lim') temaLim();
@@ -42,7 +42,7 @@ function savedTheme() {
     else if (theme === 'dark') temaDark();
 }  
 
-savedTheme();
+salvarTema();
 
 class AulasComponent extends HTMLElement {
     constructor() {
@@ -183,11 +183,11 @@ class AulasComponent extends HTMLElement {
 
 customElements.define('aulas-component', AulasComponent);
 
-function openMenu() {
+function abrirMenu() {
     document.getElementById("menu_aba").style.display = "block"; 
 }
 
-function closeMenu() {
+function abrirMenu() {
     document.getElementById("menu_aba").style.display = "none";    
 }
 

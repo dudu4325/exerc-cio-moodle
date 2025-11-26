@@ -3,7 +3,7 @@ let events = [];
 let editingEventId = null;
 
 function init() {
-    savedTheme();
+    salvarTema();
     updateDateDisplay();
     generateTimeSlots();
     uploadClasses();
@@ -243,7 +243,7 @@ function updateCurrentTimeIndicator() {
     }
 }
 
-function openMenu() {
+function abrirMenu() {
     document.getElementById("menu_aba").style.display = "block";
     const indicator = document.getElementById('currentTimeIndicator');
     if (indicator) {
@@ -251,7 +251,7 @@ function openMenu() {
     }
 }
 
-function closeMenu() {
+function fecharMenu() {
     document.getElementById("menu_aba").style.display = "none";    
     updateCurrentTimeIndicator();
 }
@@ -284,7 +284,7 @@ function temaDark() {
     localStorage.setItem('tema', 'dark');
 }
 
-function savedTheme() {
+function salvarTema() {
     const theme = localStorage.getItem('tema');
 
     if (theme === 'lim') temaLim();
