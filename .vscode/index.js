@@ -34,6 +34,16 @@ const aulasData = [
     }
 ];
 
+function savedTheme() {
+    const theme = localStorage.getItem('tema');
+
+    if (theme === 'lim') temaLim();
+    else if (theme === 'inatel') temaInatel();
+    else if (theme === 'dark') temaDark();
+}  
+
+savedTheme();
+
 class AulasComponent extends HTMLElement {
     constructor() {
         super();
@@ -189,6 +199,8 @@ function temaLim() {
     document.documentElement.style.setProperty('--cor-back2', '#4f6a93');
     document.documentElement.style.setProperty('--md-sys-color-primary', '#38184C');
     document.documentElement.style.setProperty('--frequencia', '#9b0a59');
+
+    localStorage.setItem('tema', 'lim');
 }
 
 function temaInatel() {
@@ -199,6 +211,8 @@ function temaInatel() {
     document.documentElement.style.setProperty('--cor-back2', '#6a937a');
     document.documentElement.style.setProperty('--md-sys-color-primary', '#126ae2');
     document.documentElement.style.setProperty('--frequencia', '#0a599b');
+
+    localStorage.setItem('tema', 'inatel');
 }
 
 function temaDark() {
@@ -215,6 +229,8 @@ function temaDark() {
     for (const [variavel, valor] of Object.entries(cores)) {
         document.documentElement.style.setProperty(variavel, valor);
     }
+
+    localStorage.setItem('tema', 'dark');
 }
 
 document.addEventListener('DOMContentLoaded', function() {  
@@ -324,7 +340,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     createCards();
 
-    // Variáveis usadas por reservarArmario (dados de exemplo)
     const usuario = { nome: "Raphael", acessibilidade: false, pendencia: false };
     let armarios = [
         { id: 1, formato: "padrao", status: true, acessivel: false },
@@ -332,7 +347,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 3, formato: "padrao", status: true, acessivel: true }
     ];
 
-    // controle do tipo selecionado (conecta com os botões .tipo)
     let tipoSelecionado = null;
     const tipos = document.querySelectorAll('.tipo');
     tipos.forEach(t => {

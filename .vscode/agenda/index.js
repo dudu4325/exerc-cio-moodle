@@ -2,6 +2,7 @@ let events = [];
 let editingEventId = null;
 
 function init() {
+    savedTheme();
     updateDateDisplay();
     generateTimeSlots();
     setupEventListeners();
@@ -244,23 +245,40 @@ function closeMenu() {
 
 function temaLim() {
     document.documentElement.style.setProperty('--cor-click', '#38184C');
+    document.documentElement.style.setProperty('--cor-sombra', '#9b0a59');
     document.documentElement.style.setProperty('--backgroundPrimary', '#CEF09D');
+
+    localStorage.setItem('tema', 'lim');
 }
 
 function temaInatel() {
     document.documentElement.style.setProperty('--cor-click', '#126ae2');
+    document.documentElement.style.setProperty('--cor-sombra', '#0a599b');
     document.documentElement.style.setProperty('--backgroundPrimary', '#edf2f4');
+
+    localStorage.setItem('tema', 'inatel');
 }
 
 function temaDark() {
     const cores = {
         '--cor-click': '#CEF09D',
+        '--cor-sombra': '#9b0a59',
         '--backgroundPrimary': '#38184C',
     };
 
     for (const [variavel, valor] of Object.entries(cores)) {
         document.documentElement.style.setProperty(variavel, valor);
     }
+
+    localStorage.setItem('tema', 'dark');
+}
+
+function savedTheme() {
+    const theme = localStorage.getItem('tema');
+
+    if (theme === 'lim') temaLim();
+    else if (theme === 'inatel') temaInatel();
+    else if (theme === 'dark') temaDark();
 }
 
 init();

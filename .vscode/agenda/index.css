@@ -7,9 +7,10 @@
 :root {
     --backgroundPrimary: #edf2f4;
     --textPrimary: #1e293b;
-    --titleColor: #0f172a;
+    --titleColor: black;
     --normalText: #64748b;
     --cor-click: #126ae2;
+    --cor-sombra: #0a599b;
 }
 
 body {
@@ -141,24 +142,24 @@ header {
 }
 
 .button-pri {
-    background-color: #3b82f6;
+    background-color: var(--cor-sombra);
     color: white;
     border-radius: 8px;
 }
 
 .button-pri:hover {
-    background-color: #2563eb;
+    background-color: var(--cor-click);
     transform: translateY(-1px);
 }
 
 .button-sec {
-    background-color: #f1f5f9;
-    color: #475569;
+    background-color: var(--cor-sombra);
+    color: white;
     border-radius: 8px;
 }
 
 .button-sec:hover {
-    background-color: #e2e8f0;
+    background-color: var(--cor-click);
     transform: translateY(-1px);
 }
 
