@@ -187,7 +187,7 @@ function abrirMenu() {
     document.getElementById("menu_aba").style.display = "block"; 
 }
 
-function abrirMenu() {
+function fecharMenu() {
     document.getElementById("menu_aba").style.display = "none";    
 }
 
