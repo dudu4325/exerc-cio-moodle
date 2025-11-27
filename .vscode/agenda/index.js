@@ -3,9 +3,10 @@ let events = [];
 let editingEventId = null;
 
 function init() {
-    salvarTema();
+    saveTheme();
     updateDateDisplay();
     generateTimeSlots();
+    loadEventsFromLocalStorage();
     uploadClasses();
     setupEventListeners();
     updateCurrentTimeIndicator();
@@ -143,6 +144,7 @@ function saveEvent(e) {
     }
 
     console.log('Evento salvo:', eventData);
+    saveEventsToLocalStorage();
     renderEvents();
     closeEventModal();
 }
@@ -194,6 +196,7 @@ function renderEvent(event) {
 
 function deleteEvent(eventId) {
     events = events.filter(event => event.id !== eventId);
+    saveEventsToLocalStorage();
     renderEvents();
 }
 
@@ -205,6 +208,8 @@ function clearAllEvents() {
 
     if (confirm('Tem certeza que deseja limpar todos os eventos?')) {
         events = [];
+        clearEventsFromLocalStorage();
+        localStorage.removeItem('aulasCarregadas');
         renderEvents();
     }
 }
@@ -241,6 +246,21 @@ function updateCurrentTimeIndicator() {
     else {
         indicator.style.display = 'none';
     }
+}
+
+function saveEventsToLocalStorage() {
+    localStorage.setItem('agendaEvents', JSON.stringify(events));
+}
+
+function loadEventsFromLocalStorage() {
+    const storedEvents = localStorage.getItem('agendaEvents');
+    if (storedEvents) {
+        events = JSON.parse(storedEvents);
+    }
+}
+
+function clearEventsFromLocalStorage() {
+    localStorage.removeItem('agendaEvents');
 }
 
 function abrirMenu() {
@@ -284,7 +304,7 @@ function temaDark() {
     localStorage.setItem('tema', 'dark');
 }
 
-function salvarTema() {
+function saveTheme() {
     const theme = localStorage.getItem('tema');
 
     if (theme === 'lim') temaLim();
@@ -329,25 +349,25 @@ const aulasData = [
 ];
 
 function uploadClasses() {
+    const aulasJaCarregadas = localStorage.getItem('aulasCarregadas');
+    
+    if (aulasJaCarregadas) {
+        renderEvents();
+        return;
+    }
+
+    localStorage.setItem('aulasCarregadas', 'true');
+    
     aulasData.forEach(aula => {
         const start = aula.horario;
-
         const [h, m] = start.split(':').map(Number);
-        
         const totalMin = h * 60 + m + 100;
-
-        const fimHora = Math.floor(totalMin / 60)
-            .toString()
-            .padStart(2, "0");
-
-        const fimMin = (totalMin % 60)
-            .toString()
-            .padStart(2, "0");
-
+        const fimHora = Math.floor(totalMin / 60).toString().padStart(2, "0");
+        const fimMin = (totalMin % 60).toString().padStart(2, "0");
         const endHour = `${fimHora}:${fimMin}`;
 
         const event = {
-            id: aula.id.toString(),
+            id: `aula-${aula.id}`,
             title: aula.disciplina,
             startTime: start,
             endTime: endHour,
@@ -357,6 +377,7 @@ function uploadClasses() {
         events.push(event);
     });
 
+    saveEventsToLocalStorage();
     renderEvents();
 }
 
